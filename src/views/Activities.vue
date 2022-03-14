@@ -13,12 +13,12 @@
             <tr>
               <th class="text-left">#</th>
                <th class="text-left">USER</th>
-              <th class="text-left"> SIGN IN</th>
+              <th class="text-left"> ACTIVITIES</th>
               <th class="text-left">TIME</th>
             </tr>
           </thead>
           <tbody>
-              <tr v-for="(item,index) in users" :key="item._id">
+              <tr v-for="(item,index) in users.reverse()" :key="item._id">
                   <td>
                         {{index+1}}
                   </td>
