@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-layout row wrap no-gutters class="white mt-6 pa-6">
+        <v-layout row wrap no-gutters class="white mt-6 pa-6"  v-if="flag==false">
             <v-flex xs12 md12 lg12 sm12 text-center>
                 <h3>
                     Create a Message...
@@ -29,7 +29,7 @@
                     </h3>
             </v-flex>
   
-             <v-flex xs12 md12 lg12>
+             <v-flex xs12 md12 lg12 >
                     <v-simple-table>
         <template v-slot:default>
           <thead>
@@ -48,7 +48,7 @@
                   {{item.msg}}
                   </td>
                   <td>
-                    <v-btn class="orange white--text">
+                    <v-btn class="orange white--text" @click="editmsg(item._id,item.msg)">
                         Edit
                     </v-btn>
                  
@@ -62,6 +62,30 @@
           </tbody>
         </template>
                     </v-simple-table>
+
+            </v-flex>
+           
+        </v-layout>
+        <v-layout row wrap no-gutters v-if="flag" class="white pa-7 mt-6">
+            <v-flex xs12 md12 lg12 sm12 text-center>
+                <h3 class="mb-6">
+                    Edit Your Message...
+                </h3>
+
+            </v-flex>
+            <v-flex xs10 md4 offset-md4 lg4 offset-lg4>
+                <v-text-field label="Type a message"
+              outlined  v-model="editmsgg">
+
+                </v-text-field>
+
+            
+
+            </v-flex>
+            <v-flex xs2 class="mt-2 pl-3">
+                    <v-btn @click="saveEditmsg" class="green white--text">
+                    Send
+                </v-btn>
 
             </v-flex>
         </v-layout>
@@ -79,7 +103,10 @@ export default {
     data(){
         return{
             msg : "",
-            msgs : []
+            msgs : [],
+            flag : false,
+            editmsgg : "",
+            msg_id : ""
         }
     },
     async mounted(){
@@ -90,6 +117,26 @@ export default {
         //alert(JSON.stringify(this.msgs))
     },
     methods:{
+        editmsg(id,msg){
+            this.editmsgg = msg
+            this.flag = true
+            this.msg_id = id
+
+           // alert(this.editmsgg)
+           
+
+        },
+        saveEditmsg(){
+         let url = BASE_URL + "/auth/user/edit/message?id=" + this.msg_id 
+            let payload = {
+               msg : this.editmsgg,
+              user : this.LOGGED_IN_USER.name
+           }
+           Axios.post(url,payload)
+           this.$router.go(0)
+           this.editmsgg ="" 
+           this.$toastr.s("Message Edited succesfully")
+        },
        save(){
            let url = BASE_URL + "/auth/user/create/message"
             let payload = {

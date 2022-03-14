@@ -5,9 +5,10 @@
         mini-variant-width="220"
         :clipped="$vuetify.breakpoint.lgAndUp"  
         >
-            <div>
-                <v-list dense>
-                    <div class="text-center mb-5">
+          
+                    
+          <div class="mt-6">
+              <div class="text-center mb-3">
                         <v-avatar size="100">
                                 <img 
                                     src="https://cdn.vuetifyjs.com/images/john.jpg"
@@ -20,30 +21,48 @@
                                   offset-y="47">
 
                                   </v-badge>
+                                  <p class="font-weight-bold  mt-3">
+                                      {{this.LOGGED_IN_USER.name}}
+                                  </p>
                     </div>
-                     
-                    <template  class="" v-for="i in items" >
-
-                        <v-layout row wrap no-gutters
-                        v-if="i.text"
-                        :key="i.text">
-                       
-                                <v-flex  @click="selectItem(i.text)"
-                                 class="primary--text 
-                                   pl-13 
-                                 font-weight-bold py-2"
-                                  >
-                                  <v-icon color="blue"
-                                  size="27" class="pr-3">
-                                      {{i.icon}}
-                                  </v-icon>
-                                    {{i.text}}
-                                </v-flex>
-                        </v-layout>
-                    </template>
-
-                </v-list>
-            </div>
+        <v-list dense class="mt-4">
+          <template v-for="item in items">
+            <v-row
+              v-if="item.heading"
+              :key="item.heading"
+              align="center"
+            >
+            
+              <v-col
+                cols="6"
+                class="text-center"
+              >
+                <a
+                  href="#!"
+                  class="body-2 green--text"
+                >EDIT</a>
+              </v-col>
+            </v-row>
+           
+            <v-list-item
+            
+              :key="item.text"
+              link
+              class="mt-3"
+              @click="selectItem(item.text)"
+            >
+              <v-list-item-action>
+                <v-icon class="blue--text ">{{ item.icon }}</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title class="blue--text">
+                  <b>{{ item.text }}</b>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+        </v-list>
+       </div>
 
 
 
@@ -80,7 +99,7 @@ export default {
                 },
                  {
                     icon : "mdi-message-bulleted",
-                    text : "Chats"
+                    text : "Messages"
                 },
                 {
                     icon : "mdi-logout",
@@ -91,7 +110,7 @@ export default {
     },
     methods:{
        selectItem(i){
-           if(i == 'Chats'){
+           if(i == 'Messages'){
                this.$router.push("/Chats")
            }
             if(i == 'Activities'){

@@ -1,6 +1,7 @@
 <template>
     <v-layout row wrap style="height:100%" class="mt-10">
-        <v-flex v-if="flag==false" class="xs12 md6 offset-md-3 ">
+        <v-flex v-if="flag==false" class="xs12 md4
+         offset-md-4 ">
             <div class=" pa-10 white elevation-2 xs12">
           
             <div class="text-center">
@@ -39,7 +40,9 @@
                 <span class="blue--text ">
                         Not Signed Up yet? 
                     </span>
-                   <v-btn class="green white--text pl-8 mt-3 pr-8"
+                   <v-btn class="green  ml-4
+                   white--text pl-8 mt-3
+                    pr-8"
                     large rounded @click="signup">
                        Sign Up <v-icon class="ml-5 white--text">
                            mdi-arrow-right</v-icon> </v-btn>
